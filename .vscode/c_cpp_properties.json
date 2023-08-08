@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/include",
+                // TODO adjust include paths below if needed.
+                "${workspaceFolder}/../../FRSCSDK/include",
+                "${workspaceFolder}/../../FRSCSDK/arm-none-linux-gnueabi/sysroot/usr/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-clang-x64"
+        }
+    ],
+    "version": 4
+}
