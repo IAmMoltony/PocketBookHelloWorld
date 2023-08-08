@@ -33,5 +33,5 @@ make app PLATFORM=ARM SDKPATH=$HOME/pocketbook-sdk/FRSCSDK ARCH=arm-none-linux-g
 
 # TODO replace INSTALLPATH with your path!
 if [ "$doInstall" == "1" ]; then
-    make install PLATFORM=ARM SDKPATH=/h ARCH=aaa SDKLIBDIR=fjfj INSTALLPATH=/media/$USER/pocketbook
+    make install PLATFORM=ARM SDKPATH=/h ARCH=aaa SDKLIBDIR=fjfj INSTALLPATH=/media/$USER/PB616/applications
 fi
