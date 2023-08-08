@@ -4,6 +4,7 @@ OBJDIR := build
 BINDIR := bin
 
 CFILES := $(wildcard $(SRCDIR)/*.c)
+CXXFILES := $(wildcard $(SRCDIR)/*.cpp)
 
 ifeq ($(strip $(PLATFORM)),)
 $(error Please set the PLATFORM variable)
@@ -32,14 +33,13 @@ $(error Please set the SDKLIBDIR variable (see makearm.sh for more info))
 endif
 
 CC := $(SDKPATH)/bin/$(ARCH)-gcc
-LD := $(CC)
+CXX := $(SDKPATH)/bin/$(ARCH)-g++
+LD := $(CXX)
 PLATFORM_OBJDIR := $(OBJDIR)/arm
 
 CFLAGS := -iquote $(INCDIR) -Wall -Wextra -c
+CXXFLAGS := $(CFLAGS) -Weffc++
 LDFLAGS := -linkview
-
-COBJS := $(patsubst $(SRCDIR)/%.c,$(PLATFORM_OBJDIR)/%_c.o,$(CFILES))
-OBJS := $(COBJS)
 
 LIBINKVIEW := $(SDKPATH)/$(SDKLIBDIR)/libinkview.so
 
@@ -49,19 +49,22 @@ else
 # Linux
 
 CC := gcc
-LD := $(CC)
+CXX := g++
+LD := $(CXX)
 PLATFORM_OBJDIR := $(OBJDIR)/linux
 
 CFLAGS := -iquote $(INCDIR) -isystem $(SDKPATH)/include -Wall -Wextra -m32 $(shell pkg-config --cflags freetype2) -c
+CXXFLAGS := $(CFLAGS) -Weffc++
 LDFLAGS := -m32 -linkview -lcurl
-
-COBJS := $(patsubst $(SRCDIR)/%.c,$(PLATFORM_OBJDIR)/%_c.o,$(CFILES))
-OBJS := $(COBJS)
 
 LIBINKVIEW := /lib32/libinkview.so
 
 APP := $(BINDIR)/linux/$(notdir $(CURDIR))
 endif
+
+COBJS := $(patsubst $(SRCDIR)/%.c,$(PLATFORM_OBJDIR)/%_c.o,$(CFILES))
+CXXOBJS := $(patsubst $(SRCDIR)/%.cpp,$(PLATFORM_OBJDIR)/%_cxx.o,$(CXXFILES))
+OBJS := $(COBJS) $(CXXOBJS)
 
 $(APP): $(OBJS) $(LIBINKVIEW)
 	@mkdir -p $(@D)
@@ -76,6 +79,10 @@ endif
 $(PLATFORM_OBJDIR)/%_c.o: $(SRCDIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $< -o $@
+
+$(PLATFORM_OBJDIR)/%_cxx.o: $(SRCDIR)/%.cpp
+	@mkdir -p $(@D)
+	$(CXX) $(CXXFLAGS) $< -o $@
 
 .PHONY: app clean run install
 

@@ -5,7 +5,7 @@ This is a hello world app for PocketBook, designed to demonstrate how to make a 
 
 ## Dependencies
 
-You need to have 32-bit versions of FreeType, cURL, libjpeg62 and GTK2 installed. You will also need to have gcc-multilib installed. You don't need to install the dependencies if you don't want to build for Linux. PocketBook SDK is required. The SDK is available [here](https://github.com/blchinezu/pocketbook-sdk).
+You need to have 32-bit versions of FreeType, cURL, libjpeg62 and GTK2 installed. You also need to have gcc-multilib and g++-multilib installed. You don't need to install the dependencies if you don't want to build for Linux. PocketBook SDK is required. The SDK is available [here](https://github.com/blchinezu/pocketbook-sdk).
 
 ## Building, Running and Installing
 
