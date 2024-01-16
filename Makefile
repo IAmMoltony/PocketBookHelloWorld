@@ -73,7 +73,7 @@ $(APP): $(OBJS) $(LIBINKVIEW)
 ifeq ($(strip $(PLATFORM)),Linux)
 # Copy libinkview.so from SDK to /lib32
 $(LIBINKVIEW): $(SDKPATH)/lib/libinkview.so
-	sudo cp $< /lib32/
+	sudo cp $< /lib32/ || { echo "warning: Failed to copy inkview, you might need to install it manually"; }
 endif
 
 $(PLATFORM_OBJDIR)/%_c.o: $(SRCDIR)/%.c
