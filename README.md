@@ -18,7 +18,7 @@ The script has 2 flags:
 1. `-r` or `--run` - Run after building
 2. `-c` or `--clean` - Clean before building (via `clean.sh`)
 
-**Note**: don't forget to set your SDK directory in `makepc.sh`.
+**Note**: don't forget to edit `linux.env` according to your setup.
 
 ### For ARM
 
@@ -29,6 +29,6 @@ The script has 2 flags:
 1. `-i` or `--install` - Install after building
 2. `-c` or `--clean` - Clean before building (via `clean.sh`)
 
-**Note**: don't forget to set your SDK directory in `makearm.sh`. If you want to install the app, you need to set the install path too. The install path is the /applications directory on your PocketBook. (e.g. the PocketBook is mounted at `/media/user/PB`, so install path would be `/media/user/PB/applications`.)
+**Note**: don't forget to edit `arm.env` according to your setup. If you want to install the app automatically, you need to set the install path too. The install path is the /applications directory on your PocketBook. (e.g. the PocketBook is mounted at `/media/user/PB`, so install path would be `/media/user/PB/applications`.)
 
 **Note 2**: also don't forget to set your SDK library directory as it is different for every SDK for some reason!

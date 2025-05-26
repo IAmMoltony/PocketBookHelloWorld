@@ -24,14 +24,10 @@ if [ "$doClean" == "1" ]; then
     ./clean.sh
 fi
 
-# TODO replace SDKPATH with your path and set ARCH to the appropriate architecture!
-# Also replace SDKLIBDIR.
-# If using PBSDK, set to arm-linux/lib
-# If using FRSCSDK, set to arm-none-linux-gnueabi/sysroot/usr/lib
-# If using SDK_481, set to arm-obreey-linux-gnueabi/sysroot/usr/lib
-make app PLATFORM=ARM SDKPATH=$HOME/pocketbook-sdk/FRSCSDK ARCH=arm-none-linux-gnueabi SDKLIBDIR=arm-none-linux-gnueabi/sysroot/usr/lib || exit 1
+. ./arm.env
 
-# TODO replace INSTALLPATH with your path!
+make app PLATFORM=ARM SDKPATH=$SDKPATH ARCH=$ARCH SDKLIBDIR=$SDKLIBDIR || exit 1
+
 if [ "$doInstall" == "1" ]; then
-    make install PLATFORM=ARM SDKPATH=/h ARCH=aaa SDKLIBDIR=fjfj INSTALLPATH=/media/$USER/PB616/applications
+    make install PLATFORM=ARM SDKPATH=/h ARCH=aaa SDKLIBDIR=fjfj INSTALLPATH=$INSTALLPATH
 fi

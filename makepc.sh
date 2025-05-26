@@ -24,11 +24,10 @@ if [ "$doClean" == "1" ]; then
     ./clean.sh
 fi
 
-# TODO replace SDKPATH with your own path! 
-sdkPath=$HOME/dev/pocketbook-sdk/PBSDK 
+. ./linux.env
 
-make app PLATFORM=Linux SDKPATH=$sdkPath || exit 1
+make app PLATFORM=Linux SDKPATH=$SDKPATH || exit 1
 
 if [ "$doRun" == "1" ]; then
-    make run PLATFORM=Linux SDKPATH=$sdkPath
+    make run PLATFORM=Linux SDKPATH=$SDKPATH
 fi
