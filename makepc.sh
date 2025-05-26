@@ -25,7 +25,7 @@ if [ "$doClean" == "1" ]; then
 fi
 
 # TODO replace SDKPATH with your own path! 
-sdkPath=$HOME/pocketbook-sdk/PBSDK 
+sdkPath=$HOME/dev/pocketbook-sdk/PBSDK 
 
 make app PLATFORM=Linux SDKPATH=$sdkPath || exit 1
 

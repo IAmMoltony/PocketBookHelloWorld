@@ -55,9 +55,9 @@ PLATFORM_OBJDIR := $(OBJDIR)/linux
 
 CFLAGS := -iquote $(INCDIR) -isystem $(SDKPATH)/include -Wall -Wextra -m32 $(shell pkg-config --cflags freetype2) -c
 CXXFLAGS := $(CFLAGS) -Weffc++
-LDFLAGS := -m32 -linkview -lcurl
+LDFLAGS := -m32 -L$(SDKPATH)/lib -linkview -lcurl
 
-LIBINKVIEW := /lib32/libinkview.so
+LIBINKVIEW := $(SDKPATH)/lib/libinkview.so
 
 APP := $(BINDIR)/linux/$(notdir $(CURDIR))
 endif
@@ -69,12 +69,6 @@ OBJS := $(COBJS) $(CXXOBJS)
 $(APP): $(OBJS) $(LIBINKVIEW)
 	@mkdir -p $(@D)
 	$(LD) $(OBJS) -o $@ $(LDFLAGS)
-
-ifeq ($(strip $(PLATFORM)),Linux)
-# Copy libinkview.so from SDK to /lib32
-$(LIBINKVIEW): $(SDKPATH)/lib/libinkview.so
-	sudo cp $< /lib32/ || { echo "warning: Failed to copy inkview, you might need to install it manually"; }
-endif
 
 $(PLATFORM_OBJDIR)/%_c.o: $(SRCDIR)/%.c
 	@mkdir -p $(@D)
@@ -102,7 +96,7 @@ install:
 else
 run:
 	cp $(SDKPATH)/../system . -r
-	$(APP)
+	LD_LIBRARY_PATH=$(SDKPATH)/lib $(APP)
 
 install:
 	@echo "You can't install the app if the platform is set to Linux. Maybe you meant \`PLATFORM=ARM'?"
